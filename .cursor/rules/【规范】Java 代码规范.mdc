@@ -1,0 +1,204 @@
+---
+description: Java 代码规范和开发约定
+globs: **/*.java
+alwaysApply: false
+---
+
+# Java 代码规范
+
+## 类命名规范
+
+| 类型 | 命名规范 | 示例 |
+|------|---------|------|
+| Job 类 | `*Job` | `AmazonIeJob`, `AmazonIeImpOmsJob` |
+| Service 接口 | `*Service` | `AmazonIeService`, `AmazonIeImpOmsService` |
+| Service 实现 | `*ServiceImpl` | `AmazonIeServiceImpl`, `AmazonIeImpOmsServiceImpl` |
+| DAO 类 | `*Dao` | `AmazonIeOrderDao` |
+| Controller 类 | `*Controller` | `AgmController` |
+| Entity 类 | 驼峰命名 | `AmazonIeOrder`, `AmazonOrder` |
+
+## 方法命名规范
+
+- **查询方法**: `find*`, `query*`, `get*`
+- **保存方法**: `save*`, `saveAll*`
+- **更新方法**: `update*`
+- **删除方法**: `delete*`, `remove*`
+- **转换方法**: `convert*`, `transform*`
+- **处理方法**: `process*`, `handle*`
+
+## 注解使用规范
+
+### Service 实现类
+```java
+@Service
+@RequiredArgsConstructor  // 使用 Lombok 自动生成构造函数
+public class XxxServiceImpl implements XxxService {
+    // ...
+}
+```
+
+### Job 类
+```java
+@Component
+@RequiredArgsConstructor
+public class XxxJob {
+    // ...
+}
+```
+
+### DAO 类
+```java
+@Component
+public class XxxDao extends AbstractXxxDao {
+    // ...
+}
+```
+
+## 链路追踪规范
+
+### @AosException 注解
+
+**所有 public 方法必须添加 `@AosException` 注解**：
+
+```java
+@AosException(
+    value = "操作名称",           // 必填：简短描述
+    domain = DOMAIN,              // 必填：域（如 "oc.ie.platform"）
+    service = SERVICE,            // 必填：服务（如 "oc.ie.platform.amazon-ie"）
+    module = MODULE              // 必填：模块（根据功能划分）
+)
+public ReturnType methodName() {
+    AosLog log = AosLogContext.get();  // 通过 AosLogContext.get() 获取日志
+    // ...
+}
+```
+
+### 监控常量定义
+
+```java
+private static final String DOMAIN = "oc.ie.platform";
+private static final String SERVICE = "oc.ie.platform.amazon-ie";
+private static final String MODULE = "oc.ie.platform.amazon-ie.{具体模块}";
+```
+
+### Module 命名规范
+
+| 功能模块 | Module 值 |
+|---------|----------|
+| 订单同步 | `oc.ie.platform.amazon-ie.order` |
+| 导入OMS | `oc.ie.platform.amazon-ie.imp-oms` |
+| Token 管理 | `oc.ie.platform.amazon-ie.token` |
+| 数据访问 | `oc.ie.platform.amazon-ie.dao` |
+| Controller | `oc.ie.platform.amazon-ie.controller` |
+
+## 日志规范
+
+### 日志获取
+```java
+// ✅ 正确：通过 AosLogContext.get() 获取
+@AosException(...)
+public void methodName() {
+    AosLog log = AosLogContext.get();
+    log.info("操作开始");
+}
+
+// ❌ 错误：不要传入 log 参数
+public void methodName(AosLog log) {  // 不要这样做
+    // ...
+}
+```
+
+### 日志格式
+```java
+// ✅ 正确：包含上下文信息
+log.info("开始处理第 " + currentBatch + "/" + totalBatches + " 批订单");
+log.error("订单导入失败: " + e.getMessage() + ", 异常类型: " + e.getClass().getSimpleName());
+
+// ❌ 错误：日志信息不完整
+log.info("处理订单");  // 缺少订单ID等关键信息
+log.error("失败");     // 缺少错误详情
+```
+
+### AosLog 使用注意事项
+
+**AosLog 要求字符串格式化的消息**：
+```java
+// ✅ 正确：使用 String.format 格式化
+String formattedMsg = String.format("处理订单: %s, 数量: %d", orderId, count);
+aosLog.info(formattedMsg);
+
+// ❌ 错误：不要使用占位符
+aosLog.info("处理订单: {}, 数量: {}", orderId, count);  // AosLog 不支持占位符
+```
+
+## 异常处理规范
+
+### 异常处理模板
+```java
+try {
+    // 业务逻辑
+    String result = someOperation();
+    return result;
+} catch (IOException e) {
+    log.error("操作失败: " + e.getMessage() + ", 异常类型: " + e.getClass().getSimpleName());
+    throw new RuntimeException("操作失败", e);  // 保留原始异常
+} catch (Exception e) {
+    log.error("未知错误: " + e.getMessage() + ", 异常类型: " + e.getClass().getSimpleName());
+    throw new RuntimeException("未知错误", e);
+}
+```
+
+### 连接重置错误处理
+```java
+// 连接重置错误会自动被 ExceptionHandlerAspect 识别并跳过告警
+// 只需要正常抛出异常即可
+try {
+    return httpClient.execute(request);
+} catch (SocketException e) {
+    // ExceptionHandlerAspect 会自动识别并跳过告警
+    throw e;
+}
+```
+
+## 同类内部调用问题
+
+**问题**: 同类内部方法调用时，Spring AOP 不会生效，`@AosException` 注解无效。
+
+**解决方案**:
+
+**方案 A：抽取到独立 Service（推荐）**
+```java
+// 1. 创建独立的 Service
+@Service
+@RequiredArgsConstructor
+public class XxxBatchService {
+    @AosException(...)
+    public BatchResult processBatches(...) {
+        // 批次处理逻辑
+    }
+}
+
+// 2. 在主 Service 中注入并调用
+@Service
+@RequiredArgsConstructor
+public class XxxServiceImpl {
+    private final XxxBatchService batchService;
+    
+    public String methodName(...) {
+        // 通过注入的 Service 调用，AOP 会生效
+        BatchResult result = batchService.processBatches(...);
+    }
+}
+```
+
+**方案 B：使用 AopContext.currentProxy()**
+```java
+// 1. 在启动类添加配置
+@EnableAspectJAutoProxy(exposeProxy = true)
+
+// 2. 在方法中使用代理调用
+public String methodName(...) {
+    XxxService self = (XxxService) AopContext.currentProxy();
+    BatchResult result = self.processBatches(...);  // 通过代理调用
+}
+```
