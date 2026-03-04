@@ -1,0 +1,66 @@
+---
+description: Git 分支命名和提交信息规范
+alwaysApply: true
+---
+
+# Git 分支与提交规范
+
+## 分支命名规范
+
+### 分支类型前缀
+- `feat/` - 新功能开发
+- `fix/` - Bug 修复
+- `docs/` - 文档更新
+- `refactor/` - 代码重构
+- `test/` - 测试相关
+- `perf/` - 性能优化
+- `chore/` - 构建过程或辅助工具变动
+- `style/` - 代码格式调整（不影响代码运行）
+
+### 命名格式
+```
+<类型>/<中文描述>-<年后2位>.<月份>.<日期>
+```
+
+**示例**：
+- `feat/用户登录-26.02.09`
+- `fix/订单校验错误-26.02.09`
+- `docs/api文档-26.02.09`
+- `refactor/支付服务-26.02.09`
+
+## 提交信息规范
+
+### 提交信息格式
+```
+<type>(<scope>): <subject>
+
+ - <具体更新内容1>
+ - <具体更新内容2>
+```
+
+### 类型（type）
+- `feat` - 新功能
+- `fix` - 修复bug
+- `docs` - 文档更新
+- `style` - 代码格式调整
+- `refactor` - 重构
+- `test` - 测试相关
+- `perf` - 性能优化
+- `chore` - 构建过程或辅助工具变动
+
+### 范围（scope）
+常用范围：`bill`, `order`, `service`, `dao`, `controller`, `config`, `*` 等
+
+### 提交示例
+```
+docs(*): 更新 Git 分支与提交规范
+
+ - 分支创建与提交统一采用 branch-name.txt、commit-msg.txt + UTF-8 读入
+ - 移除 here-string 方案，避免 IDE、CI 等环境编码乱码
+```
+
+## 操作流程
+
+1. **创建分支**：使用 `branch-name.txt` 文件（UTF-8 编码）存储分支名，然后通过 PowerShell 读取创建
+2. **提交信息**：使用 `commit-msg.txt` 文件（UTF-8 编码）存储提交信息，然后通过 `git commit -F` 提交
+3. **推送分支**：使用 `git push -u origin <branch-name>` 推送并设置上游分支
