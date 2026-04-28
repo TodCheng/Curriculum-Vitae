@@ -19,6 +19,8 @@
 | Java SpringBoot Maven | Order Center OC | 2026–Present | Multi-platform store order download, waybill upload and other interfaces |
 | Python | Multi-Box Palletizing System PL | 2025–2026 | Web, Mobile, PDA integration, pallet loading simulation |
 | Aozhe CloudPivot 8.6 (Java Maven) | Aozhe CloudPivot APAAS POC | 2026–Present | Tenant extension, user extension, launcher/user service extension, frontend modules |
+| Shushi Oinone 6.4.5 (Java Maven) | Aozhe CloudPivot APAAS POC | 2026–Present | Tenant extension, user extension, model, AI Agent, frontend modules |
+| Defan 5.0 (Java Maven) | Defan APAAS POC | 2026–Present | Tenant extension, user extension, model, AI Agent, frontend modules |
 
 ---
 
