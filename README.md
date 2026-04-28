@@ -19,6 +19,8 @@
 | Java SpringBoot Maven | 订单中心 OC | 2026-至今 | 各平台店铺订单下载、运单上传等接口 |
 | Python | 多箱码垛系统 PL | 2025-2026 | Web、Mobile、PDA 三端集成，托盘装箱模拟 |
 | 奥哲云枢 CloudPivot 8.6（Java Maven） | 奥哲云枢 APAAS POC | 2026-至今 | 租户扩展、用户扩展、launcher/user 服务扩展、前端模块 |
+| 数式 Oinone 6.4.5（Java Maven） | 奥哲云枢 APAAS POC | 2026-至今 | 租户扩展、用户扩展、模型、AI Agent、前端模块 |
+| 得帆 5.0（Java Maven） | 得帆 APAAS POC | 2026-至今 | 租户扩展、用户扩展、模型、AI Agent、前端模块 |
 
 ---
 
