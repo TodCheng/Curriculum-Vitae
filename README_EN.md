@@ -7,20 +7,25 @@
 | Tech Stack | Project | Period | Main Features |
 |------------|---------|--------|---------------|
 | Oracle Stored Procedures | Oracle EBS ERP | 2018–Present | Product, Planning, Procurement, QC, Stocking, Customs, Shipping, Inventory, Cost, Orders, RMA, Warehouse Split, Courier Split, Picking, Courier, Dispatch, Payables, Prepayments, General Ledger, Period Close, Invoicing, Reconciliation, Reporting |
-| Liruan Agile Framework (.NET) | Order OMS | 2021–Present | Orders, RMA, Pan-European Sales, Warehouse Split, Courier Split |
+| Liruan Agile Framework (.NET) | Order OMS | 2021–Present | Orders, RMA, Pan-European Sales, Warehouse Split, Courier Split, Consignment & Distribution |
 | Kingdee Cloud Xinghan APAAS (Java Gradle) | Supply Chain SCM | 2021–2023 | Order Forecast, Shipping Plan, API Integration |
 | Kingdee Cloud Xinghan APAAS (Java Gradle) | Sales SOM | 2021–2023 | Sales Forecast, Sales Quotation, API Integration |
-| Kingdee Cloud Xinghan APAAS (Java Gradle) | Marketing MMS | 2021–2023 | Promotion, Workflow, API Integration |
+| Kingdee Cloud Xinghan APAAS (Java Gradle) | Marketing MMS | 2021–2023 | Amazon SP/ST auto-bidding & budget, report upload, workflow, API integration |
 | Kingdee Cloud Xinghan APAAS (Java Gradle) | Finance FMS | 2024–2025 | Reconciliation, API Integration |
 | Cainiao | Warehouse WMS | 2025–2026 | API Integration |
 | Java SpringBoot Maven | Logistics Tracking Platform PTC | 2025–Present | Integration of trackingmore, amazonshipping and other third-party courier APIs |
 | Java SpringBoot Maven | Oracle EBS External API Platform | 2025–Present | EBS external interface platform |
 | Java SpringBoot Maven | Complete Inventory Calculation Platform CIC | 2025–Present | WMS integration, box-level complete inventory calculation |
-| Java SpringBoot Maven | Order Center OC | 2026–Present | Multi-platform store order download, waybill upload and other interfaces |
+| Java SpringBoot Maven | Order Center OC | 2026–Present | Multi-platform store order download, waybill upload, product update APIs, SQS notifications, observability (@AosException, MDC, Feishu exception alerts) |
 | Python | Multi-Box Palletizing System PL | 2025–2026 | Web, Mobile, PDA integration, pallet loading simulation |
-| Aozhe CloudPivot 8.6 (Java Maven) | Aozhe CloudPivot APAAS POC | 2026–Present | Tenant extension, user extension, launcher/user service extension, frontend modules |
-| Shushi Oinone 6.4.5 (Java Maven) | Aozhe CloudPivot APAAS POC | 2026–Present | Tenant extension, user extension, model, AI Agent, frontend modules |
-| Defan 5.0 (Java Maven) | Defan APAAS POC | 2026–Present | Tenant extension, user extension, model, AI Agent, frontend modules |
+| Aozhe CloudPivot 8.6 (Java Maven) | Aozhe CloudPivot APAAS POC | 2026–2026 | Tenant extension, user extension, launcher/user service extension, frontend modules |
+| Shushi Oinone 6.4.5 (Java Maven) | Aozhe CloudPivot APAAS POC | 2026–2026 | Tenant extension, user extension, model, AI Agent, frontend modules |
+| Defan 5.0 (Java Maven) | Defan APAAS POC | 2026–2026 | Tenant extension, user extension, model, AI Agent, frontend modules |
+| Java SpringBoot Maven | Order Center Frontend oc-web | 2026–2026 | Multi-theme, multi-store order query, API services, account management |
+| Java SpringBoot Maven | Inventory Center IC | 2026–2026 | Mongo inventory snapshot/transaction/reservation/combined SKU, XXL-Job Feishu heartbeat |
+| Cursor Agent / PowerShell | Shared Skills Submodule Repo | 2026–2026 | `.cursor` triple Submodule, skill Hook Feishu ledger, InnoSetup installer |
+| Cursor Agent / Feishu MCP · Apifox CLI | Feishu Project Apifox API Spec Workflow | 2026–2026 | Requirements lock → OpenAPI → Apifox import → CLI smoke test four-step skill pack (WMS loading order practice) |
+| Cursor Agent / Feishu CLI | AI Collaboration Infrastructure | 2026–2026 | Daily report skill pack, Spec-DD doc standards, Feishu Project six-step delivery workflow, Git branch/commit conventions |
 
 ---
 
@@ -92,6 +97,10 @@ Based on tech stack and business project experience, R&D capabilities are summar
 - **Conversational Programming**: Cursor multi-file understanding, context-aware code completion and refactoring
 - **Troubleshooting**: AI-assisted log analysis, root cause analysis, Feishu notification context interpretation
 - **Knowledge Retention**: Feishu Cloud Documents + AI summarization; specs and functional docs are AI-searchable and referenceable
+- **Feishu MCP**: Feishu Project requirements/task context integrated into Cursor Agent; supports requirements locking and collaboration ledger sync
+- **Apifox CLI**: Requirements lock → OpenAPI generation → Apifox import → CLI smoke test four-step skill pack (API spec closed loop)
+- **Feishu CLI**: Daily report, Spec-DD doc standards, Feishu Project six-step delivery workflow, Git branch/commit conventions, and other AI collaboration skill packs
+- **Agent Skills Infrastructure**: `.cursor` Submodule skill repo, Hook Feishu ledger, PowerShell/InnoSetup installer distribution
 
 ### 3.2 Tech Stack Breadth
 - **Multi-Language**: Java (SpringBoot), .NET, Python, Oracle PL/SQL

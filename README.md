@@ -7,20 +7,25 @@
 | 技术栈 | 项目 | 周期 | 主要功能 |
 |--------|------|------|----------|
 | Oracle 存储过程 | Oracle EBS ERP | 2018-至今 | 产品、计划、采购、质检、备货、报关、出运、库存、成本、订单、RMA、分仓、分快递、拣货、快递、派遣、应付、预付、总账、期间、开票、对账、报表 |
-| 力软敏捷开发框架（.NET） | 订单 OMS | 2021-至今 | 订单、RMA、泛欧销售、分仓、分快递 |
+| 力软敏捷开发框架（.NET） | 订单 OMS | 2021-至今 | 订单、RMA、泛欧销售、分仓、分快递、代卖经销 |
 | 金蝶云星瀚 APAAS（Java Gradle） | 供应链 SCM | 2021-2023 | 排单预测、出运计划、API 对接 |
 | 金蝶云星瀚 APAAS（Java Gradle） | 销售 SOM | 2021-2023 | 销售预测、销售报价、API 对接 |
-| 金蝶云星瀚 APAAS（Java Gradle） | 营销 MMS | 2021-2023 | 推广、工作流、API 对接 |
+| 金蝶云星瀚 APAAS（Java Gradle） | 营销 MMS | 2021-2023 | 推广亚马逊SP/ST自动出价预算、报告上传、工作流、API 对接 |
 | 金蝶云星瀚 APAAS（Java Gradle） | 财务 FMS | 2024-2025 | 对账、API 对接 |
 | 菜鸟 | 仓储 WMS | 2025-2026 | API 对接 |
 | Java SpringBoot Maven | 物流轨迹平台 PTC | 2025-至今 | 集成 trackingmore、amazonshipping 等第三方快递接口 |
 | Java SpringBoot Maven | Oracle EBS 外挂 API 接口平台 | 2025-至今 | EBS 对外接口平台 |
 | Java SpringBoot Maven | 齐套库存计算平台 CIC | 2025-至今 | 对接 WMS，分箱齐套库存计算 |
-| Java SpringBoot Maven | 订单中心 OC | 2026-至今 | 各平台店铺订单下载、运单上传等接口 |
+| Java SpringBoot Maven | 订单中心 OC | 2026-至今 | 各平台店铺订单下载、运单上传、产品更新等接口、SQS 通知、可观测性（@AosException、MDC、飞书异常通知） |
 | Python | 多箱码垛系统 PL | 2025-2026 | Web、Mobile、PDA 三端集成，托盘装箱模拟 |
-| 奥哲云枢 CloudPivot 8.6（Java Maven） | 奥哲云枢 APAAS POC | 2026-至今 | 租户扩展、用户扩展、launcher/user 服务扩展、前端模块 |
-| 数式 Oinone 6.4.5（Java Maven） | 奥哲云枢 APAAS POC | 2026-至今 | 租户扩展、用户扩展、模型、AI Agent、前端模块 |
-| 得帆 5.0（Java Maven） | 得帆 APAAS POC | 2026-至今 | 租户扩展、用户扩展、模型、AI Agent、前端模块 |
+| 奥哲云枢 CloudPivot 8.6（Java Maven） | 奥哲云枢 APAAS POC | 2026-2026 | 租户扩展、用户扩展、launcher/user 服务扩展、前端模块 |
+| 数式 Oinone 6.4.5（Java Maven） | 奥哲云枢 APAAS POC | 2026-2026 | 租户扩展、用户扩展、模型、AI Agent、前端模块 |
+| 得帆 5.0（Java Maven） | 得帆 APAAS POC | 2026-2026 | 租户扩展、用户扩展、模型、AI Agent、前端模块 |
+| Java SpringBoot Maven | 订单中心前端 oc-web | 2026-2026 | 多主题、订单查询多店铺、接口服务、账号管理 |
+| Java SpringBoot Maven | 库存中心 IC | 2026-2026 | Mongo 库存快照/事务/保留/组合货号、XXL-Job 飞书心跳 |
+| Cursor Agent / PowerShell | 通用技能子仓库 | 2026-2026 | `.cursor` 三 Submodule、技能 Hook 飞书台账、InnoSetup 安装包 |
+| Cursor Agent / 飞书 MCP · Apifox CLI | 飞书项目 Apifox 接口规范流程 | 2026-2026 | 需求锁定 → OpenAPI → Apifox 导入 → CLI 冒烟四步技能包（WMS 装车单实践） |
+| Cursor Agent / 飞书 CLI | AI 协作基础设施 | 2026-2026 | 日报填写技能包、Spec-DD 文档规范、飞书项目六步交付流程、Git 分支/提交规范 |
 
 ---
 
@@ -92,6 +97,10 @@
 - **对话编程**：Cursor 多文件理解、上下文感知的代码补全与重构
 - **问题排查**：AI 辅助日志分析、异常根因定位、飞书通知上下文解读
 - **知识沉淀**：飞书云文档 + AI 总结，规范、功能文档可被 AI 检索与引用
+- **飞书 MCP**：飞书项目需求/任务上下文接入 Cursor Agent，支撑需求锁定与协作台账联动
+- **Apifox CLI**：需求锁定 → OpenAPI 生成 → Apifox 导入 → CLI 冒烟测试四步流程技能包（接口规范闭环）
+- **飞书 CLI**：日报填写、Spec-DD 文档规范、飞书项目六步交付流程、Git 分支/提交规范等 AI 协作技能包
+- **Agent 技能基建**：`.cursor` Submodule 技能子仓库、Hook 飞书台账、PowerShell/InnoSetup 安装包分发
 
 ### 3.2 技术栈广度
 - **多语言**：Java（SpringBoot）、.NET、Python、Oracle PL/SQL
