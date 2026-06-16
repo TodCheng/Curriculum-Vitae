@@ -33,19 +33,28 @@
 
 ### 2.1 AI 辅助开发
 - **AI IDE**：Cursor（AI 原生编辑器，代码补全、对话编程、多文件理解）
+- **Agent Skills**：独立技能包（`SKILL.md` + `assets/` + `scripts/`），可整夹复制外传；`.cursor` 三 leaf **Git Submodule** 分发通用技能
+- **Cursor Hooks**：`beforeSubmitPrompt` 技能使用埋点 → PowerShell → **lark-cli** 写飞书「技能使用次数」台账
+- **飞书项目 MCP**：工作项锁定、`search_by_mql`、`add_comment` 回写（接口规范 / Apifox / 冒烟报告链）
+- **lark-cli**：多维表读写、日历 `+agenda`、IM `+messages-search`、Wiki 文档入库（用户态 `identity=user`）
 - **代码助手**：GitHub Copilot、通义灵码（代码生成、注释补全、单元测试）
-- **规范驱动**：Spec-DD 规范文档 → AI 生成代码骨架与实现
-- **协作提效**：飞书 AI、文档智能总结、知识库问答
+- **规范驱动**：Spec-DD 规范文档 → AI 生成代码骨架与实现；OpenAPI 导入前检查清单门禁
+- **Apifox CLI**：私有化 `--api-base-url`、`test-suite run`、`--upload-report` 冒烟与报告回写
+- **协作提效**：飞书 AI、文档智能总结、知识库问答；日报多源采集（飞书结案 + Git + 日历 + IM）
 
 ### 2.2 数据库与数据工具
 - Plsql、MongoDB Compass、DMS NineData、DBeaver、RedisDesktopManager
 
 ### 2.3 开发工具
 - Cursor AI、IntelliJ IDEA、Eclipse、Visual Studio、VS Code
+- **PowerShell**：Hook 脚本、技能包 `Import.ps1` / 台账写入、InnoSetup 编译辅助
+- **InnoSetup**：Cursor 技能包 / Submodule 一键安装程序（`Aosom-Skills`）
 - Notepad++
 
 ### 2.4 API 与测试
-- ApiFox、Postman、Fork
+- **Apifox**（Web + **CLI**）：OpenAPI `import-data` HTTP 导入、测试套件冒烟、私有化部署基址
+- Postman、Fork
+- **OpenAPI 3**：规范驱动接口契约；`x-apifox-folder` 目录对齐；飞书 `work_item_id` 全链路追溯扩展字段
 
 ### 2.5 远程与运维
 - SecureCRT、WinSCP、DAS-USM
@@ -55,6 +64,7 @@
 
 ### 2.7 版本控制
 - GitLab、GitHub、SVN
+- **Git Submodule**：`kit-skills` 三 leaf（rules / commands / 通用技能）；英文 **kebab-case** 分支名（内网 push 稳定）
 
 ### 2.8 任务调度
 - XXL-JOB
@@ -63,7 +73,8 @@
 - 得帆云 iPaaS 平台
 
 ### 2.10 协作与知识库
-- 飞书项目、飞书云文档知识库
+- **飞书项目**（Meego / IT-项目 MCP）、飞书云文档 / Wiki 知识库
+- **飞书多维表（Base）**：IT 日报、通用 Skills 管理台账、技能使用次数、Apifox 接口发布记录
 
 ### 2.11 CI/CD 与质量
 - Jenkins、SonarQube
@@ -85,6 +96,12 @@
 
 ### 2.17 测试与质量
 - JUnit 5、Mockito、AssertJ、JaCoCo（覆盖率）
+
+### 2.18 前端与 Web（2026 · oc-web）
+- **Spring Boot + FreeMarker**：服务端渲染、宏组件化列表页
+- **Spring Security**：登录/退出转场、角色菜单（管理员 / 销售 / 客服）
+- **多主题 UI**：多前端风格切换；首选项多语言与时区（`localStorage` + `oc-web-ui.json`）
+- **可插拔表格范式**：订单查询多店铺适配器、接口服务 `/ledger` HTTP 探测、库存四类 Mongo 只读列表
 
 ---
 
@@ -110,31 +127,39 @@
 ### 3.3 业务领域深度
 - **供应链全链路**：从 ERP（产品、采购、库存、成本）到订单 OMS、供应链 SCM、销售 SOM、营销 MMS、财务 FMS、仓储 WMS
 - **物流与履约**：物流轨迹平台、快递接口集成、分仓分快递、拣货派遣
-- **电商与订单**：多平台店铺订单、运单上传、RMA、泛欧销售
+- **电商与订单**：多平台店铺订单（Amazon IE、Trendyol RO、Syncee FR 等）、运单上传、SQS 订单通知、RMA、泛欧销售
+- **订单中心运营面**：oc-web 订单查询 / 接口服务探测 / 账号与库存管理；微服务台账与 K8s Ingress 对齐
+- **库存域（oc-inv）**：Mongo 快照账本（按国别并行、飞书 Job 心跳）、事务/保留/组合货号同步与 CIC/EBS 契约
 
 ### 3.4 系统集成能力
 - **API 对接**：EBS 外挂接口平台、各业务系统 API 对接、第三方快递接口（trackingmore、amazonshipping）
+- **OpenAPI 契约闭环**：飞书锁定需求 → 【规范】+ OpenAPI → Apifox 导入 → CLI 冒烟 → MCP 评论回写（WMS 装车单等实践）
+- **EBS 包体/存储过程**：`insert_order_iface`、平台商品同步、装车单/WMS 等性能与字段迭代
 - **平台化**：得帆云 iPaaS、订单中心 OC、齐套库存计算平台 CIC
 - **数据同步**：ETL DP、DataX 等数据集成与迁移
-- **跨平台对接**：Amazon SP-API、AWS S3/KMS/SQS、Oracle EBS SOAP
+- **跨平台对接**：Amazon SP-API（refresh token、confirmShipment）、AWS S3/KMS/SQS、Oracle EBS SOAP
 
 ### 3.5 工程化能力
 - **质量保障**：Jenkins、SonarQube 持续集成与代码质量
 - **可观测性**：Grafana、Prometheus、观测云 监控与告警
-- **任务调度**：XXL-JOB 定时任务与分布式调度
+- **任务调度**：XXL-JOB 定时任务与分布式调度；长 Job **飞书心跳**（快照账本等国别 k/N 进度）
 - **日志链路**：基于 OpenTelemetry + AOP 的链路追踪，MDC 注入 traceId/spanId 实现日志关联，Slf4j 结构化日志，异常自动飞书通知（嵌套调用去重、连接重置静默）
+- **Agent 技能治理**：Hook 四步接入（安装 → 本机 config → lark-cli 授权 → 试写）；扫描登记 + 使用次数公式汇总
 - **多数据源**：dynamic-datasource 支持 MySQL、Oracle、MongoDB 动态切换
 - **重试与容错**：Spring Retry 重试机制、消息幂等性设计
-- **模块化架构**：common 公共模块 + 业务模块分层复用
+- **模块化架构**：common 公共模块 + 业务模块分层复用；`application-shared-*.yml` 瘦骨架 + 单服务覆盖
 - **微服务分层**：Controller（API 入口）→ Service（业务逻辑）→ Dao/Repository（数据访问），Job 定时任务、Mapper 外部接口，common 抽象接口供业务模块实现
 
 ### 3.6 规范与交付
-- **规范驱动**：Spec-DD 规范驱动开发，文档先行（规范 → 代码 → 测试）
-- **版本与协作**：GitLab/GitHub、飞书项目、飞书云文档知识库
+- **规范驱动**：Spec-DD 规范驱动开发，文档先行（规范 → 代码 → 测试）；【类型】中文文档命名与 `.docs/` 单源
+- **飞书六步交付**：锁定任务 → 【功能】设计 + `add_comment` → 开发 → 验证 → 文档沉淀 → Git 分支与提交（分步人工确认）
+- **日报与工时**：飞书 CLI 多源只读采集 + 预览定稿后写入 Base；空「大项」行复用、0.5h 步进与单日上限
+- **版本与协作**：GitLab/GitHub、Submodule 协作（业务仓 commit Hook，源仓库本地安装）；飞书项目、飞书云文档知识库
 
 ### 3.7 测试与质量
 - **单元测试**：JUnit 5、Mockito、AssertJ、JaCoCo 覆盖率
-- **多环境配置**：Spring Profiles 切换、配置外部化、功能开关
+- **接口冒烟**：Apifox CLI 测试套件 + 报告上传；OpenAPI 导入前检查清单强制门禁
+- **多环境配置**：Spring Profiles 切换、`application-ledger-{dev,test,prod}.yml` 探测矩阵、配置外部化、功能开关
 
 ### 3.8 安全与认证
 - **OAuth 2.0**：Amazon SP-API refresh token 流程

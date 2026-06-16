@@ -33,19 +33,28 @@
 
 ### 2.1 AI-Assisted Development
 - **AI IDE**: Cursor (AI-native editor with code completion, conversational programming, multi-file understanding)
+- **Agent Skills**: Standalone skill packs (`SKILL.md` + `assets/` + `scripts/`), copyable as a whole folder; `.cursor` triple leaf **Git Submodule** for distributing shared skills
+- **Cursor Hooks**: `beforeSubmitPrompt` skill usage telemetry → PowerShell → **lark-cli** writes to Feishu "Skill Usage Count" ledger
+- **Feishu Project MCP**: Work item locking, `search_by_mql`, `add_comment` write-back (API spec / Apifox / smoke report chain)
+- **lark-cli**: Bitable read/write, calendar `+agenda`, IM `+messages-search`, Wiki doc ingestion (user-scoped `identity=user`)
 - **Code Assistants**: GitHub Copilot, Tongyi Lingma (code generation, comment completion, unit testing)
-- **Spec-Driven**: Spec-DD specification documents → AI-generated code skeletons and implementations
-- **Collaboration**: Feishu AI, intelligent document summarization, knowledge base Q&A
+- **Spec-Driven**: Spec-DD specification documents → AI-generated code skeletons and implementations; OpenAPI pre-import checklist gate
+- **Apifox CLI**: Private deployment `--api-base-url`, `test-suite run`, `--upload-report` smoke tests and report write-back
+- **Collaboration**: Feishu AI, intelligent document summarization, knowledge base Q&A; daily report multi-source collection (Feishu closed items + Git + calendar + IM)
 
 ### 2.2 Database & Data Tools
 - Plsql, MongoDB Compass, DMS NineData, DBeaver, RedisDesktopManager
 
 ### 2.3 Development Tools
 - Cursor AI, IntelliJ IDEA, Eclipse, Visual Studio, VS Code
+- **PowerShell**: Hook scripts, skill pack `Import.ps1` / ledger writes, InnoSetup compile helper
+- **InnoSetup**: Cursor skill pack / Submodule one-click installer (`Aosom-Skills`)
 - Notepad++
 
 ### 2.4 API & Testing
-- ApiFox, Postman, Fork
+- **Apifox** (Web + **CLI**): OpenAPI `import-data` HTTP import, test suite smoke runs, private deployment base URL
+- Postman, Fork
+- **OpenAPI 3**: Spec-driven API contracts; `x-apifox-folder` folder alignment; Feishu `work_item_id` end-to-end traceability extension fields
 
 ### 2.5 Remote & Ops
 - SecureCRT, WinSCP, DAS-USM
@@ -55,6 +64,7 @@
 
 ### 2.7 Version Control
 - GitLab, GitHub, SVN
+- **Git Submodule**: `kit-skills` triple leaf (rules / commands / shared skills); English **kebab-case** branch names (stable for internal push)
 
 ### 2.8 Task Scheduling
 - XXL-JOB
@@ -63,7 +73,8 @@
 - Definesys Cloud iPaaS Platform
 
 ### 2.10 Collaboration & Knowledge Base
-- Feishu Project, Feishu Cloud Document Knowledge Base
+- **Feishu Project** (Meego / IT-Project MCP), Feishu Cloud Documents / Wiki knowledge base
+- **Feishu Bitable (Base)**: IT daily reports, shared Skills management ledger, skill usage counts, Apifox API release records
 
 ### 2.11 CI/CD & Quality
 - Jenkins, SonarQube
@@ -85,6 +96,12 @@
 
 ### 2.17 Testing & Quality
 - JUnit 5, Mockito, AssertJ, JaCoCo (coverage)
+
+### 2.18 Frontend & Web (2026 · oc-web)
+- **Spring Boot + FreeMarker**: Server-side rendering, macro-based list page components
+- **Spring Security**: Login/logout transitions, role-based menus (Admin / Sales / Support)
+- **Multi-Theme UI**: Multiple frontend style switching; preference-based i18n and timezone (`localStorage` + `oc-web-ui.json`)
+- **Pluggable Table Pattern**: Multi-store order query adapters, API services `/ledger` HTTP probing, four Mongo read-only inventory list types
 
 ---
 
@@ -110,31 +127,39 @@ Based on tech stack and business project experience, R&D capabilities are summar
 ### 3.3 Business Domain Depth
 - **End-to-End Supply Chain**: From ERP (product, procurement, inventory, cost) to Order OMS, Supply Chain SCM, Sales SOM, Marketing MMS, Finance FMS, Warehouse WMS
 - **Logistics & Fulfillment**: Logistics tracking platform, courier API integration, warehouse/courier split, picking and dispatch
-- **E-Commerce & Orders**: Multi-platform store orders, waybill upload, RMA, Pan-European sales
+- **E-Commerce & Orders**: Multi-platform store orders (Amazon IE, Trendyol RO, Syncee FR, etc.), waybill upload, SQS order notifications, RMA, Pan-European sales
+- **Order Center Operations**: oc-web order query / API service probing / account & inventory management; microservice ledger aligned with K8s Ingress
+- **Inventory Domain (oc-inv)**: Mongo snapshot ledger (parallel by country, Feishu Job heartbeat), transaction/reservation/combined SKU sync and CIC/EBS contracts
 
 ### 3.4 System Integration
 - **API Integration**: EBS external interface platform, business system APIs, third-party courier APIs (trackingmore, amazonshipping)
+- **OpenAPI Contract Closed Loop**: Feishu requirements lock → 【Spec】+ OpenAPI → Apifox import → CLI smoke → MCP comment write-back (WMS loading order and other practices)
+- **EBS Packages/Stored Procedures**: `insert_order_iface`, platform product sync, loading order/WMS performance and field iterations
 - **Platformization**: Definesys Cloud iPaaS, Order Center OC, Complete Inventory Calculation Platform CIC
 - **Data Sync**: ETL DP, DataX for data integration and migration
-- **Cross-Platform Integration**: Amazon SP-API, AWS S3/KMS/SQS, Oracle EBS SOAP
+- **Cross-Platform Integration**: Amazon SP-API (refresh token, confirmShipment), AWS S3/KMS/SQS, Oracle EBS SOAP
 
 ### 3.5 Engineering Capabilities
 - **Quality Assurance**: Jenkins, SonarQube for continuous integration and code quality
 - **Observability**: Grafana, Prometheus, Guance Cloud for monitoring and alerting
-- **Task Scheduling**: XXL-JOB for scheduled and distributed job scheduling
+- **Task Scheduling**: XXL-JOB for scheduled and distributed job scheduling; long-running Job **Feishu heartbeat** (snapshot ledger country k/N progress)
 - **Logging & Tracing**: OpenTelemetry + AOP-based tracing; MDC injection of traceId/spanId for log correlation; Slf4j structured logging; automatic Feishu exception notifications (nested call deduplication, connection reset silencing)
+- **Agent Skill Governance**: Hook four-step onboarding (install → local config → lark-cli auth → trial write); scan registration + usage count formula aggregation
 - **Multi-Datasource**: dynamic-datasource for MySQL, Oracle, MongoDB dynamic switching
 - **Retry & Resilience**: Spring Retry, message idempotency design
-- **Modular Architecture**: common module + business module layered reuse
+- **Modular Architecture**: common module + business module layered reuse; `application-shared-*.yml` slim skeleton + per-service overrides
 - **Microservice Layering**: Controller (API entry) → Service (business logic) → Dao/Repository (data access); Job scheduled tasks; Mapper external interfaces; common abstract interfaces for business module implementation
 
 ### 3.6 Standards & Delivery
-- **Spec-Driven**: Spec-DD specification-driven development; documentation first (spec → code → test)
-- **Version & Collaboration**: GitLab/GitHub, Feishu Project, Feishu Cloud Document Knowledge Base
+- **Spec-Driven**: Spec-DD specification-driven development; documentation first (spec → code → test); 【Type】Chinese doc naming and `.docs/` single source
+- **Feishu Six-Step Delivery**: Lock task → 【Feature】design + `add_comment` → development → verification → doc retention → Git branch & commit (step-by-step manual confirmation)
+- **Daily Reports & Timesheets**: Feishu CLI multi-source read-only collection + preview before final write to Base; empty "major item" row reuse, 0.5h increments and daily cap
+- **Version & Collaboration**: GitLab/GitHub, Submodule collaboration (business repo commit Hook, source repo local install); Feishu Project, Feishu Cloud Document knowledge base
 
 ### 3.7 Testing & Quality
 - **Unit Testing**: JUnit 5, Mockito, AssertJ, JaCoCo coverage
-- **Multi-Environment Config**: Spring Profiles switching, externalized config, feature flags
+- **API Smoke Tests**: Apifox CLI test suites + report upload; OpenAPI pre-import checklist mandatory gate
+- **Multi-Environment Config**: Spring Profiles switching, `application-ledger-{dev,test,prod}.yml` probe matrix, externalized config, feature flags
 
 ### 3.8 Security & Authentication
 - **OAuth 2.0**: Amazon SP-API refresh token flow
